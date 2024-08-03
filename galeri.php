@@ -11,9 +11,9 @@
         $result = mysqli_query($conn, $sql);
         while ($row = mysqli_fetch_assoc($result)) {
         ?>
-            <div class="col-md-4">
-                <div class="card mb-4">
-                    <img src="assets/images/<?php echo $row['gambar']; ?>" class="card-img-top" alt="<?php echo $row['judul']; ?>">
+            <div class="col-md-4 col-sm-6 mb-4">
+                <div class="card">
+                    <img src="assets/images/<?php echo $row['gambar']; ?>" class="card-img-top img-fluid" alt="<?php echo $row['judul']; ?>">
                     <div class="card-body">
                         <h5 class="card-title"><?php echo $row['judul']; ?></h5>
                         <p class="card-text"><?php echo $row['deskripsi']; ?></p>

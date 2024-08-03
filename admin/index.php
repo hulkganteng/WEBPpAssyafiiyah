@@ -30,12 +30,15 @@ $result = mysqli_query($conn, $sql);
         <a href="add_ustad.php" class="btn btn-secondary">
             <i class="fas fa-user-plus"></i> Tambah Ustad/Ustadzah
         </a>
+        <a href="add_foto_galeri.php" class="btn btn-info">
+            <i class="fas fa-image"></i> Tambah Foto Galeri
+        </a>
         <a href="logout.php" class="btn btn-danger">
             <i class="fas fa-sign-out-alt"></i> Logout
         </a>
     </div>
     <h3>Daftar Berita</h3>
-    <table class="table">
+    <table class="table table-responsive">
         <thead>
             <tr>
                 <th>ID</th>

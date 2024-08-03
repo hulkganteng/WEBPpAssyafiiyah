@@ -10,57 +10,62 @@ include '../database.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $judul = mysqli_real_escape_string($conn, $_POST['judul']);
     $isi = mysqli_real_escape_string($conn, $_POST['isi']);
-    $gambar = $_FILES['gambar']['name'];
     $target_dir = "../images/";
-    $target_file = $target_dir . basename($_FILES["gambar"]["name"]);
+
+    $image_names = [];
     $uploadOk = 1;
-    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-
-    // Check if image file is an actual image or fake image
-    $check = getimagesize($_FILES["gambar"]["tmp_name"]);
-    if ($check !== false) {
-        $uploadOk = 1;
-    } else {
-        echo "File is not an image.";
-        $uploadOk = 0;
-    }
-
-    // Check if file already exists
-    if (file_exists($target_file)) {
-        echo "Sorry, file already exists.";
-        $uploadOk = 0;
-    }
-
-    // Allow certain file formats
-    if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
-        echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-        $uploadOk = 0;
-    }
-
-    // Check file size
-    if ($_FILES["gambar"]["size"] > 500000) { // 500KB max
-        echo "Sorry, your file is too large.";
-        $uploadOk = 0;
-    }
-
-    // Check if $uploadOk is set to 0 by an error
-    if ($uploadOk == 0) {
-        echo "Sorry, your file was not uploaded.";
-    } else {
-        // if everything is ok, try to upload file
-        if (!is_dir($target_dir)) {
-            mkdir($target_dir, 0777, true); // Create directory if not exists
+    
+    // Loop through each file
+    foreach ($_FILES['gambar']['name'] as $key => $value) {
+        $target_file = $target_dir . basename($_FILES["gambar"]["name"][$key]);
+        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+        $check = getimagesize($_FILES["gambar"]["tmp_name"][$key]);
+        
+        if ($check === false) {
+            echo "File is not an image.";
+            $uploadOk = 0;
+            break;
         }
         
-        if (move_uploaded_file($_FILES["gambar"]["tmp_name"], $target_file)) {
-            $sql = "INSERT INTO berita (judul, isi, gambar) VALUES ('$judul', '$isi', '$gambar')";
-            if (mysqli_query($conn, $sql)) {
-                header("Location: index.php");
-            } else {
-                echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+        if (file_exists($target_file)) {
+            echo "Sorry, file already exists: " . $target_file;
+            $uploadOk = 0;
+            break;
+        }
+        
+        if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
+            echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+            $uploadOk = 0;
+            break;
+        }
+        
+        if ($_FILES["gambar"]["size"][$key] > 500000) { // 500KB max
+            echo "Sorry, your file is too large.";
+            $uploadOk = 0;
+            break;
+        }
+        
+        if ($uploadOk == 1) {
+            if (!is_dir($target_dir)) {
+                mkdir($target_dir, 0777, true); // Create directory if not exists
             }
+            if (move_uploaded_file($_FILES["gambar"]["tmp_name"][$key], $target_file)) {
+                $image_names[] = basename($_FILES["gambar"]["name"][$key]);
+            } else {
+                echo "Sorry, there was an error uploading your file.";
+                $uploadOk = 0;
+                break;
+            }
+        }
+    }
+    
+    if ($uploadOk == 1) {
+        $images = implode(',', $image_names);
+        $sql = "INSERT INTO berita (judul, isi, gambar) VALUES ('$judul', '$isi', '$images')";
+        if (mysqli_query($conn, $sql)) {
+            header("Location: index.php");
         } else {
-            echo "Sorry, there was an error uploading your file.";
+            echo "Error: " . $sql . "<br>" . mysqli_error($conn);
         }
     }
 }
@@ -88,7 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
         <div class="form-group" id="gambar">
             <label for="gambar">Gambar:</label>
-            <input type="file" class="form-control-file" id="gambar" name="gambar" required>
+            <input type="file" class="form-control-file" id="gambar" name="gambar[]" multiple required>
         </div>
         <button type="submit" class="btn btn-primary">Tambah</button>
     </form>

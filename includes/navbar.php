@@ -18,6 +18,7 @@
                     <a class="dropdown-item" href="profil_pesantren.php"><i class="fas fa-school"></i> Profil Pesantren</a>
                     <a class="dropdown-item" href="kegiatan_harian.php"><i class="fas fa-calendar-day"></i> Kegiatan Harian</a>
                     <a class="dropdown-item" href="kalender_tahunan.php"><i class="fas fa-calendar-alt"></i> Kalender Tahunan</a>
+                    <a class="dropdown-item" href="madrasah_diniyah.php"><i class="fas fa-book"></i> Madrasah Diniyah</a>
                 </div>
             </li>
             <li class="nav-item dropdown">
@@ -43,9 +44,6 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="daftar_ustad.php"><i class="fas fa-chalkboard-teacher"></i> Daftar Ustad/Ustadzah</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="admin/login.php"><i class="fas fa-sign-in-alt"></i> Login Admin</a>
             </li>
         </ul>
     </div>
