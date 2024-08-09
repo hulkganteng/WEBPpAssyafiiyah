@@ -1,0 +1,11 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /private/
+Allow: /
+
+# Blocking specific crawlers
+User-agent: BadBot
+Allow: /
+
+# Sitemap
+Sitemap: https://www.ppassyafiiyahbungah.com/sitemap.xml
