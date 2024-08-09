@@ -3,6 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="robots" content="index, follow">
+	<meta name="description" content="ppassyafiiyah">
+	<meta name="keywords" content="<?php echo $keywords; ?>">
+	<meta name="robots" content="all,index,follow">
+	<meta http-equiv="Content-Language" content="id-ID">
+	<meta NAME="Distribution" CONTENT="Global">
+	<meta NAME="Rating" CONTENT="General">
+	<link rel="canonical" href="<?php echo "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; ?>"/>
+	<meta property="og:type" content="article" />
     <title>Pondok Pesantren Assyafiiyah</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
